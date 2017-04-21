@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+	<script src="/module/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+  	<div class='container' id='container'>
+
+
+  		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="navbar-header">
+						 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="home">图simple</a>
+					</div>
+					
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li >
+								 <a href="addStuff">我要投稿</a>
+							</li>
+							<li>
+								 <a href="#">管理员界面</a>
+							</li>
+							<li class="dropdown">
+								 <a class="dropdown-toggle" href="#" data-toggle="dropdown">查看往期作品<strong class="caret"></strong></a>
+								<ul class="dropdown-menu">
+									<li  v-for='edi in edition'>
+										 <a @click='selectEdi(edi)'>第{{edi}}期</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								 <a href="#">关于我们</a>
+							</li>
+						</ul>
+					</div>					
+				</nav>
+			</div>
+		</div>
+
+
+
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="btn-group">
+					 <button class="btn btn-default">管理员操作</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li>
+							 <a @click="changePage(deleteData.judge)">删除作品</a>
+						</li>
+						<li>
+							 <a @click="changePage(addData.judge)">添加新的主题</a>
+						</li>
+					</ul>
+				</div>
+
+				<form role="form" v-show='deleteData.show'>
+					<div class="form-group">
+						 <label for="exampleInputEmail1">被删除作品期数</label><input type="text" class="form-control" v-model='deleteData.edition' />
+					</div>
+					<div class="form-group">
+						 <label for="exampleInputPassword1">被删除作品名称</label><input type="text" class="form-control" v-model='deleteData.name' />
+					</div>
+						<p class="help-block">
+							请在提交前确认，操作后无法撤销
+						</p>
+						<button @click.prevent="submit" class="btn btn-default">提交</button>
+					</div> 
+				</form>
+
+
+				<form class="form-horizontal" role="form" id = 'uploadForm' action = '/hoster?type=add' enctype = 'multipart/form-data' method = 'post' v-show='addData.show'>
+					<div class="form-group">
+						 <label for="inputEmail3" class="col-sm-2 control-label">主题介绍:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name='introduce' />
+						</div>
+					</div>
+					  <div class="form-group">
+					  	<div class="col-md-offset-2">
+					  		<input type="file" name='upload'>
+    						<p class="help-block">在这里提交你的图片，只支持png与jpg文件，请提交高质量文件方便其他人编辑</p>
+					  	</div>
+					  </div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							 <button type="submit" class="btn btn-default" name='sign'>提交</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+
+  	</div>
+  	<script src='/module/jquery-3.2.1.min.js'></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src='/javascripts/hoster.js'></script>
+  </body>
+</html>

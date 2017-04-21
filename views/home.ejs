@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+	<script src="/module/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+
+<div class="container" id='container'>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="login">图simple</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li >
+							 <a href="addStuff">我要投稿</a>
+						</li>
+						<li>
+							 <a href="login">管理员界面</a>
+						</li>
+						<li class="dropdown">
+							 <a class="dropdown-toggle" href="#" data-toggle="dropdown">查看往期作品<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li  v-for='edi in edition'>
+									 <a @click='selectEdi(edi)'>第{{edi}}期</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							 <a href="#">关于我们</a>
+						</li>
+					</ul>
+				</div>
+				
+			</nav>
+			<div id='title' class='jumbotron'>
+				 <h2>本期介绍: </h2> {{ Title ? Title.introduce : '载入中'}}
+			<button class='btn btn-link' data-toggle="modal" data-target="#myModal"><span  @click='showImg(Title.titleImgSrc)'>点击查看附件图片</span></button>
+			</div>
+		</div>
+	</div>
+
+		<div v-if='loaded' class='row clearfix jumbotron'>
+			<div class="col-md-6 column" v-for='stuff in stuffData' id='mainPage'>
+				<div>
+					<div class='thumbnail'>
+						<h4>
+							{{stuff.name}}
+						</h4>
+						<p>
+							{{stuff.introduce}}
+						</p>
+					</div>
+					<img :src='stuff.imgSrc' class="img-responsive"></img>
+					<button class='btn btn-link' data-toggle="modal" data-target="#myModal"><span  @click='showImg(stuff.imgSrc)'>点击查看大图</span></button>
+					<p>
+						 <a class="btn btn-default " @click='addVote(stuff.name,stuff.votes)'><span class="glyphicon glyphicon-thumbs-up"></span></a>
+						 <span>赞：{{stuff.votes}}</span>
+					</p>					
+				</div>
+			</div>
+		</div>
+		<div v-else>正在加载中</div>
+				<!-- 模态框（Modal） -->
+		<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<p>supported by <em>图simple</em></p>
+					</div>
+					<div class="modal-body">
+						<img :src="showBigImg" class="img-responsive">
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+</div>
+
+    <script src='/module/jquery-3.2.1.min.js'></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src='/javascripts/home.js'></script>
+  </body>
+</html>
